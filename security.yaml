@@ -1,0 +1,43 @@
+# Create new SecurityGroup IAM Group
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  SecurityGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      GroupName: SecurityGroup
+
+# Create new SecurityPolicy Inline Policy
+# Policy can only be used on SecurityGroup
+  SecurityPolicy:
+    Type: AWS::IAM::Policy
+    DependsOn: SecurityGroup
+    Properties:
+      PolicyName: SecurityPolicy
+      Groups:
+        - SecurityGroup
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              # CloudTrail
+              - cloudtrail:GetChannel
+              - cloudtrail:GetTrail
+              - cloudtrail:ListDashboards
+              - cloudtrail:ListTrails
+              - cloudtrail:UpdateTrail
+              - cloudtrail:GetTrailStatus
+              - cloudtrail:DescribeQuery
+              - cloudtrail:ListChannels
+              - cloudtrail:DeleteChannel
+              - cloudtrail:CreateDashboard
+              - cloudtrail:DescribeTrails
+              - cloudtrail:GetDashboard
+              - cloudtrail:UpdateDashboard
+              - cloudtrail:DeleteTrail
+              - cloudtrail:CreateTrail
+              - cloudtrail:DeleteDashboard
+              - cloudtrail:ListQueries
+              - cloudtrail:UpdateChannel
+            Resource:
+              - arn:aws:cloudtrail:::*

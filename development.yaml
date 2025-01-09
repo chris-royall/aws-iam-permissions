@@ -1,0 +1,42 @@
+# Create new DevelopmentGroup IAM Group
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  DevelopmentGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      GroupName: DevelopmentGroup
+
+# Create new DevelopmentPolicy Inline Policy
+# Policy can only be used on SecurityGroup
+  DevelopmentPolicy:
+    Type: AWS::IAM::Policy
+    DependsOn: DevelopmentGroup
+    Properties:
+      PolicyName: DevelopmentPolicy
+      Groups:
+        - DevelopmentGroup
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              # S3
+              - 's3:ListBucket'
+              - 's3:ListBucketVersions'
+              - 's3:GetObject'
+              - 's3:GetObjectVersion'
+              # CloudWatch
+              - 'cloudwatch:DescribeAlarms'
+              - 'cloudwatch:GetMetricData'
+              # CloudWatch logs
+              - 'logs:DescribeQueries'
+              - 'logs:DescribeLogGroups'
+              - 'logs:GetQueryResults'
+              - 'logs:GetLogEvents'
+              - 'logs:FilterLogEvents'
+              # EC2
+              - 'ec2:DescribeInstances'
+              # RDS
+              - 'rds:DescribeDBInstances'
+              - 'rds:DescribeDBClusters'
+            Resource: "*"

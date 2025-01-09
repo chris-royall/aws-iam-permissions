@@ -1,0 +1,40 @@
+# Create new ServiceDeskGroup IAM Group
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  ServiceDeskGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      GroupName: ServiceDeskGroup
+
+# Create new ServiceDeskPolicy Inline Policy
+# Policy can be used on any Group
+  ServiceDeskPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: ServiceDeskPolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              # CloudWatch
+              - 'cloudwatch:DescribeAlarms'
+              - 'cloudwatch:GetMetricData'
+              # CloudWatch Logs
+              - 'logs:DescribeQueries'
+              - 'logs:DescribeLogGroups'
+              - 'logs:GetQueryResults'
+              - 'logs:GetLogEvents'
+              - 'logs:FilterLogEvents'
+              # EC2
+              - 'ec2:DescribeInstances'
+              # RDS
+              - 'rds:DescribeDBInstances'
+              - 'rds:DescribeDBClusters'
+            Resource:
+              - 'arn:aws:s3:::service-desk-bucket/*'
+              - 'arn:aws:cloudwatch:::*'
+              - 'arn:aws:ec2:eu-west-2:account-id:instance/*'
+              - 'arn:aws:rds:eu-west-2:account-id:db/*'
+      Groups:
+        - !Ref ServiceDeskGroup
