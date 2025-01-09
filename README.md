@@ -1,6 +1,6 @@
 # AWS CloudFormation Deployed IAM Permissions
 
-This script automates the permissions of AWS CloudFormation stacks for different teams within an organisation. It allows to create and update IAM Groups and Policies based on the team specified in the `team_name` variable.
+This script automates the management of IAM permissions for different teams within an organization using AWS CloudFormation. It allows users to create and update IAM Groups and Policies based on the `team_name` variable, which specifies the team. By leveraging Infrastructure as Code (IaC), the script ensures consistency, scalability, and ease of deployment, reducing the risks associated with manual configuration.
 
 ## Usage
 
