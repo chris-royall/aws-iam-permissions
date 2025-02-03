@@ -36,6 +36,7 @@ Resources:
               - 'logs:FilterLogEvents'
               # EC2
               - 'ec2:DescribeInstances'
+              - 'ec2:DescribeVolumes'
               # RDS
               - 'rds:DescribeDBInstances'
               - 'rds:DescribeDBClusters'
