@@ -25,7 +25,12 @@ jobs:
       - name: Make Script Executable
         run: chmod +x deploy.sh
 
-      - name: Run Script
+      - name: Set team_name environment variable
         run: |
           echo "team_name=${{ github.event.inputs.team_name }}" >> $GITHUB_ENV
+          echo "team_name set to: ${{ github.event.inputs.team_name }}"
+          
+      - name: Run Script
+        run: |
+          echo "Running with team_name: $team_name"
           ./deploy.sh
