@@ -1,0 +1,31 @@
+name: Run AWS CLI Script
+
+on:
+  workflow_dispatch:
+    inputs:
+      team_name:
+        description: 'Team Name (development, security, service_desk)'
+        required: true
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - name: Make Script Executable
+        run: chmod +x deploy.sh
+
+      - name: Run Script
+        run: |
+          echo "team_name=${{ github.event.inputs.team_name }}" >> $GITHUB_ENV
+          ./deploy.sh
