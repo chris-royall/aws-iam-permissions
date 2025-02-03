@@ -1,25 +1,26 @@
 # AWS CloudFormation Deployed IAM Permissions
 
-This script automates the management of IAM permissions for different teams within an organization using AWS CloudFormation. It allows users to create and update IAM Groups and Policies based on the `team_name` variable, which specifies the team. By leveraging Infrastructure as Code (IaC), the script ensures consistency, scalability, and ease of deployment, reducing the risks associated with manual configuration.
-
-## Usage
-
-1. Set the `team_name` variable to one of the following: `development`, `security`, `service_desk`.
-2. Execute the `deploy.sh` script.
-3. If CloudFormation Stack does not exist, a new Stack is created.
-4. If CloudFormation Stack already exists, update existing Stack.
-5. The script will create IAM groups and policies, and the group will be assigned the appropriate policy based on the selected team.
-
 ## Script Execution
 
-To execute the script, set the TEAM variable and run the command as shown below:
-```
-#!/bin/bash
-# Set the variable and run the stack
-team_name="<value>" ./deploy.sh  # Choose from 'security', 'development', or 'service_desk'
-```
+The `deploy.sh` script uses GitHub Actions.
 
-Example, to deploy the security team's permissions:
-```
-team_name="security" ./deploy.sh
-```
+1. **Trigger the Workflow**:
+   - Go to the **Actions** tab, and select the **Run AWS CLI Script** workflow.
+   - Provide a `team_name` value. The possible values for `team_name` are:
+     - `development`
+     - `security`
+     - `service_desk`
+
+2. **CloudFormation Stack Management**:
+   - The script checks if a CloudFormation stack exists for the selected team (`development`, `security`, or `service_desk`).
+   - If the stack does not exist, a new stack is created.
+   - If the stack already exists, the script updates the stack with the latest configuration.
+
+3. **IAM Groups and Policies Creation**:
+   - The script will automatically create or update IAM groups and assign them the appropriate policies based on the selected team.
+
+4. **Review Execution**:
+   - After the workflow is executed, you can check the logs to see the details of the CloudFormation stack creation or update process.
+
+5. **View the Logs**:
+   - Go to the **Actions** tab in GitHub to view the logs and verify that the stack was created or updated successfully.
