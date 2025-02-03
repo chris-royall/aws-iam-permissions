@@ -20,6 +20,7 @@ Resources:
               # CloudWatch
               - 'cloudwatch:DescribeAlarms'
               - 'cloudwatch:GetMetricData'
+              - 'cloudwatch:GetMetricStatistics'
               # CloudWatch Logs
               - 'logs:DescribeQueries'
               - 'logs:DescribeLogGroups'
@@ -31,6 +32,9 @@ Resources:
               # RDS
               - 'rds:DescribeDBInstances'
               - 'rds:DescribeDBClusters'
+              # S3
+              - 's3:GetObject'
+              - 's3:ListBucket'
             Resource:
               - 'arn:aws:s3:::service-desk-bucket/*'
               - 'arn:aws:cloudwatch:::*'

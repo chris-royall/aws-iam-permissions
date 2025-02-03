@@ -38,6 +38,5 @@ Resources:
               - cloudtrail:CreateTrail
               - cloudtrail:DeleteDashboard
               - cloudtrail:ListQueries
-              - cloudtrail:UpdateChannel
             Resource:
               - arn:aws:cloudtrail:::*
